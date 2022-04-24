@@ -1,6 +1,6 @@
-# Project management tool
+# CV tool
 
-This project is build a tool to manage project for a small team like trello.
+This project is build a tool to create CV.
 
 Technologies: .Net Core 3x, API, SignalR, MSSQL, React TypeScript, Redux Toolkit - RTK Query, React Bootstrap.
 
