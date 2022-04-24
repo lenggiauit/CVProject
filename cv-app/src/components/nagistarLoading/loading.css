@@ -1,0 +1,23 @@
+.page-loading-logo {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background: transparent;
+    z-index: 99999;
+}
+.page-loading-logo > div.logo {
+    /* background-image: url("Nagistar.png");
+    background-repeat: no-repeat;
+    background-position: center; */
+}
+
+.page-loading-logo > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}

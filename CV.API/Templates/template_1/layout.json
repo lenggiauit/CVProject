@@ -1,0 +1,164 @@
+{
+  "name": "Template 1",
+  "version": "1.0",
+  "author": "default",
+  "layout": [
+    {
+      "id": "",
+      "name": "Header",
+      "type": "section",
+      "columns": 12,
+      "order": 0,
+      "childs": [
+        {
+          "id": "",
+          "parentId": "",
+          "name": "Name",
+          "type": "h1",
+          "order": 0,
+          "editType": "Input",
+          "placeholder": "[FullName]",
+          "value": null
+        },
+        {
+          "id": "",
+          "parentId": "",
+          "name": "Name",
+          "type": "H2",
+          "order": 1,
+          "valueType": "Input",
+          "placeholder": "[JobTitle]",
+          "value": null
+        },
+        {
+          "id": "",
+          "name": "Main",
+          "type": "Container",
+          "columns": 12,
+          "order": 2,
+          "childs": [
+            {
+              "id": "",
+              "parentId": "",
+              "name": "left",
+              "type": "div",
+              "columns": 6,
+              "order": 0,
+              "childs": [
+                {
+                  "id": "",
+                  "parentId": "",
+                  "name": "Phone",
+                  "type": "Label",
+                  "order": 0,
+                  "text": "[Phone]"
+                },
+                {
+                  "id": "",
+                  "parentId": "",
+                  "name": "Phone",
+                  "type": "Label",
+                  "order": 1,
+                  "editType": "Input",
+                  "placeholder": "[PhoneNumber]",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "id": "",
+              "parentId": "",
+              "name": "right",
+              "type": "div",
+              "columns": 6,
+              "order": 1,
+              "childs": [
+                {
+                  "id": "",
+                  "parentId": "",
+                  "name": "LinkedIn",
+                  "type": "Label",
+                  "order": 0,
+                  "text": "[LinkedIn]"
+                },
+                {
+                  "id": "",
+                  "parentId": "",
+                  "name": "LinkedIn",
+                  "type": "Label",
+                  "order": 1,
+                  "editType": "Input",
+                  "placeholder": "[YourLinkedIn]",
+                  "value": null
+                }
+              ]
+            },
+
+            {
+              "id": "",
+              "parentId": "",
+              "name": "left",
+              "type": "div",
+              "columns": 6,
+              "order": 3,
+              "childs": [
+                {
+                  "id": "",
+                  "parentId": "",
+                  "name": "Email",
+                  "type": "Label",
+                  "order": 0,
+                  "text": "[Email]"
+                },
+                {
+                  "id": "",
+                  "parentId": "",
+                  "name": "Email",
+                  "type": "Label",
+                  "order": 1,
+                  "editType": "Input",
+                  "placeholder": "[Email]",
+                  "value": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "",
+      "name": "Main",
+      "type": "Container",
+      "columns": 4,
+      "order": 1,
+      "childs": [
+        {
+          "id": "",
+          "name": "left",
+          "type": "div",
+          "columns": 4,
+          "order": 1,
+          "childs": [
+            {
+
+            }
+          ]
+        },
+        {
+          "id": "",
+          "name": "right",
+          "type": "div",
+          "columns": 8,
+          "order": 0,
+          "childs": [
+            {
+
+            }
+          ]
+        }
+      ]
+    }
+  ]
+
+}

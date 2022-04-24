@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>E:\GitHub Projects\ProjectManagement\PM.API\bin\Release\netcoreapp3.1\publish\</_PublishTargetUrl>
+    <History>True|2022-02-05T08:02:32.9782391Z;True|2022-01-27T15:12:13.0370430+07:00;True|2022-01-26T20:54:51.7944343+07:00;True|2022-01-26T18:04:38.0398832+07:00;</History>
+  </PropertyGroup>
+</Project>

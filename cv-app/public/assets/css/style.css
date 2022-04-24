@@ -1,0 +1,587 @@
+.block-number {
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.8125em;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #191919;
+  transition: 0.3s ease-out;
+}
+.block-number:hover {
+  opacity: 1;
+}
+.block-number::after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 6px;
+  margin-bottom: 2px;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-top: 3px solid #191919;
+}
+.block-number a:hover,
+.block-number a:focus {
+  color: #191919;
+}
+
+.demo-section .main-content .section,
+.demo-topbar .main-content .topbar,
+.demo-navbar .main-content .navbar,
+.demo-header .main-content .header,
+.demo-footer .main-content .footer {
+  margin: 30px 20px 100px;
+  border: 1px solid #f5f6f7;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+}
+
+.demo-topbar .main-content .topbar,
+.demo-navbar .main-content .navbar {
+  position: static;
+  margin: 0;
+}
+
+.sample-blocks img {
+  border-radius: 0.25rem;
+}
+.sample-blocks img.aos-animate {
+  opacity: 0.5 !important;
+}
+.sample-blocks img:hover {
+  opacity: 1 !important;
+  transition: 0.7s !important;
+}
+
+.sample-blocks a {
+  position: absolute;
+}
+
+.sample-blocks a:nth-child(1) {
+  -webkit-animation: wobble 4s infinite;
+  animation: wobble 4s infinite;
+  right: 15px;
+  bottom: -20px;
+}
+
+.sample-blocks a:nth-child(2) {
+  -webkit-animation: wobble 8s infinite;
+  animation: wobble 8s infinite;
+  right: 320px;
+  bottom: 30px;
+}
+
+.sample-blocks a:nth-child(3) {
+  -webkit-animation: wobble 5s infinite;
+  animation: wobble 5s infinite;
+  right: 0px;
+  bottom: 190px;
+}
+
+.sample-blocks a:nth-child(4) {
+  -webkit-animation: wobble 6s infinite;
+  animation: wobble 6s infinite;
+  right: 280px;
+  bottom: 180px;
+}
+
+.sample-blocks a:nth-child(5) {
+  -webkit-animation: wobble 9s infinite;
+  animation: wobble 9s infinite;
+  right: 270px;
+  bottom: 320px;
+}
+
+.sample-blocks a:nth-child(6) {
+  -webkit-animation: wobble 7s infinite;
+  animation: wobble 7s infinite;
+  right: 20px;
+  bottom: 370px;
+}
+
+.sample-blocks a:nth-child(7) {
+  -webkit-animation: wobble 5s infinite;
+  animation: wobble 5s infinite;
+  right: 200px;
+  bottom: 470px;
+}
+
+.sample-blocks a:nth-child(8) {
+  -webkit-animation: wobble 8s infinite;
+  animation: wobble 8s infinite;
+  right: 10px;
+  bottom: 470px;
+}
+
+.sample-blocks a:nth-child(9) {
+  -webkit-animation: wobble 9s infinite;
+  animation: wobble 9s infinite;
+  right: 0px;
+  bottom: 570px;
+}
+
+@-webkit-keyframes wobble {
+  0% {
+    transform: rotate(-1deg) translate(-5px, -5px);
+  }
+  50% {
+    transform: rotate(1deg) translate(5px, 5px);
+  }
+  100% {
+    transform: rotate(-1deg) translate(-5px, -5px);
+  }
+}
+
+@keyframes wobble {
+  0% {
+    transform: rotate(-1deg) translate(-5px, -5px);
+  }
+  50% {
+    transform: rotate(1deg) translate(5px, 5px);
+  }
+  100% {
+    transform: rotate(-1deg) translate(-5px, -5px);
+  }
+}
+
+@media (max-width: 400px) {
+  body > .footer .social a:last-child,
+  body > .footer .nav a:last-child {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
+
+.alert-field {
+  padding: 0px 2px !important;
+  font-size: 10px;
+}
+
+.div-centered .main-content {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: space-around;
+}
+.modal.show {
+  display: block !important;
+  background-color: rgba(200, 200, 200, 0.5);
+}
+
+.navbar-dark {
+  background-color: #191919;
+}
+.navbar-blue {
+  background-color: #27b4fa;
+}
+
+.navbar {
+  position: relative !important;
+  top: 0px !important;
+  width: 100%;
+}
+.navbar-dark .nav-navbar > .nav-link {
+  color: #ccc !important;
+}
+.navbar-dark .nav-item > .nav-link:hover {
+  color: #eee !important;
+}
+.navbar-dark .nav-link.active {
+  color: #eee !important;
+}
+
+.nav-container {
+  width: 100%;
+  max-width: 100% !important;
+}
+.navbar-dark .navbar-divider {
+  background-color: rgba(250, 250, 250, 0.85) !important;
+}
+.section {
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+}
+.card-body.team-container {
+  min-height: 120px;
+  max-height: 120px;
+}
+
+.team-container {
+  text-align: right;
+  padding: 2rem;
+  border-radius: 10px;
+}
+.team-container.team-type {
+  position: relative;
+}
+.team-container .team-type-tag {
+  position: absolute;
+  top: 0;
+  left: 40px;
+  color: #fff;
+  padding: 1px 0.75rem;
+  padding-right: 1.5rem;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  font-weight: 400;
+  border-top-right-radius: 5rem;
+  border-bottom-right-radius: 5rem;
+  transform: rotate(90deg);
+  transform-origin: top left;
+}
+.team-container .team-type-tag.dev {
+  background-color: #3cd458;
+}
+.team-container .team-type-tag.qc {
+  background-color: #0cc2f7;
+}
+.team-container .team-type-tag.ba {
+  background-color: #f70c70;
+}
+.team-container .team-type-tag.po {
+  background-color: #e220f1;
+}
+.team-container .team-type-tag.production {
+  background-color: #c3f114;
+}
+.team-container .team-type-tag.management {
+  background-color: #f1a114;
+}
+
+.profile-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0 solid transparent;
+  border-radius: 0.25rem;
+  margin-bottom: 1.5rem;
+  min-height: 380px;
+}
+.profile-card hr {
+  margin: 15px auto !important;
+}
+.profile-avatar-container {
+  position: relative;
+  width: 50%;
+  height: 50%;
+  overflow: hidden;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.conversation-avatars {
+  max-width: 60px;
+  max-height: 60px;
+}
+
+.conversation-avatars-item {
+  max-width: 45px;
+  max-height: 45px;
+}
+
+.profile-avatar-container .profile-avatar-img {
+  /* width: 200px;
+  height: 150px; */
+}
+.profile-avatar-container .profile-avatar-edit-link-container {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  cursor: pointer;
+}
+.profile-avatar-container .profile-avatar-edit-link-container a {
+  width: 150px;
+  display: block;
+  margin: 0px auto;
+  height: 36px;
+  border-radius: 0 0 150px 150px;
+  background-color: #eee;
+  text-align: center;
+  line-height: 36px;
+}
+
+.profile-avatar-container:hover .profile-avatar-edit-link-container {
+  display: block;
+}
+.hide {
+  display: none;
+}
+.height-100vh-60px {
+  height: calc(100vh - 60px);
+}
+.conversationer-item-body-container:hover {
+  background-color: #f1f2f3;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.conversationer-container {
+  height: calc(100vh - 190px);
+}
+.conversation-detail-container {
+  height: calc(100vh - 190px);
+  min-width: 760px !important;
+}
+.conversation-detail-body-container {
+  position: relative;
+}
+.conversation-detail-body-container .conversation-list-container {
+  height: calc(100vh - 220px);
+}
+.conversation-detail-body-container .conversation-detail-typing-users {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  max-height: 50px;
+  width: 100%;
+  display: block;
+}
+.typing-avatar {
+  width: 28px;
+  height: 28px;
+  margin-right: 5px;
+}
+.conversation-avatars-container {
+  position: relative;
+  display: block;
+  min-height: 60px;
+}
+.conversation-avatars-container img {
+  border: solid 2px #f1f2f3;
+}
+
+.conversation-avatars-container img.multiple:nth-child(0) {
+  position: absolute;
+  left: 0%;
+}
+.conversation-avatars-container img.multiple:nth-child(2n + 0) {
+  position: absolute;
+  left: 10%;
+}
+.conversation-avatars-container img.multiple:nth-child(2n + 1) {
+  position: absolute;
+  left: 20%;
+}
+.conversation-avatars-container img.multiple:nth-child(2n + 2) {
+  position: absolute;
+  left: 30%;
+}
+
+.active-conversation {
+  background-color: #f1f2f3;
+}
+
+.receiving-message {
+  animation-name: backgroundColorPalette;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+  /* linear is enabled default, it’s not necessary to add it make it work but it can make your code more expressive */
+}
+
+@keyframes backgroundColorPalette {
+  0% {
+    background: #ffffff;
+  }
+  100% {
+    background: #50a1ff;
+  }
+}
+
+.input-group-search {
+  border: none !important;
+  width: auto !important;
+}
+.input-group-search .form-control {
+  border: 1px solid #eaeff4 !important;
+}
+.list-messenger .messenger-item {
+  cursor: pointer;
+  margin: 5px 0px !important;
+}
+.list-messenger .messenger-item :hover {
+  background-color: #f1f2f3;
+}
+.list-messenger .messenger-item.selected {
+  background-color: #f1f2f3;
+}
+.message-content {
+  clear: both;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.conversation-item-container {
+  padding: 5px 5px !important;
+}
+.message-content-controls {
+  display: none !important;
+}
+.conversation-item-container:hover .message-content-controls {
+  display: inline-block !important;
+}
+.conversation-item-container:hover .message-content-controls.deleted {
+  display: none !important;
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+/* project */
+
+.card-body.project-container,
+.card-body.template-type-item-container {
+  min-height: 120px;
+  max-height: 120px;
+}
+.card.template-item-container {
+  min-height: 450px;
+  max-height: 450px;
+  overflow: hidden;
+}
+
+.project-container {
+  text-align: right;
+  padding: 2rem;
+  border-radius: 10px;
+  position: relative;
+}
+
+.project-container .project-status {
+  position: absolute;
+  top: 0;
+  left: 40px;
+  color: #fff;
+  padding: 1px 0.75rem;
+  padding-right: 1.5rem;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  font-weight: 400;
+  border-top-right-radius: 5rem;
+  border-bottom-right-radius: 5rem;
+  transform: rotate(90deg);
+  transform-origin: top left;
+}
+.project-container .project-status.open {
+  background-color: #3cd458;
+}
+.project-container .project-status.hold {
+  background-color: #f1a114;
+}
+.project-container .project-status.closed {
+  background-color: #f70c70;
+}
+/*  status radio  */
+label.btn input[type="radio"] {
+  display: none;
+}
+
+label.btn {
+  align-items: center;
+  text-align: center;
+  margin-right: 5px;
+}
+
+/* project left nav */
+
+.project-nav {
+  display: inline-block;
+  font-family: "Roboto", sans-serif;
+  height: calc(100vh - 56px);
+  position: absolute;
+  top: 56px;
+  left: 0px;
+  z-index: 999;
+}
+.project-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.project-nav ul li {
+  line-height: 40px;
+  padding: 0px 8px;
+  font-size: 15px;
+  border-bottom: solid 1px #ffffff;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+}
+.project-nav ul li a {
+  display: block;
+}
+.logo {
+  font-size: 21px;
+}
+.project-nav i {
+  color: #fff;
+  font-size: 22px;
+  width: 30px;
+  text-align: center;
+}
+.project-nav ul li div {
+  color: #fff;
+  display: none;
+  padding-left: 10px;
+}
+.project-nav ul li a:hover {
+  text-decoration: none;
+}
+.project-nav ul li:hover {
+  background: #066996;
+}
+.project-nav:hover {
+  width: 250px;
+}
+.project-nav:hover div {
+  display: inline-block;
+}
+
+.project-detail-container {
+  margin-left: 46px;
+  padding: 0 15px;
+}
+
+.h-fullscreen-nav {
+  height: calc(100vh - 60px) !important;
+}
+.template-image {
+  min-height: 250px;
+  max-height: 250px;
+  overflow: hidden;
+  text-align: center;
+}
+.template-image img {
+  height: 250px;
+
+  object-fit: scale-down;
+}
+
+.template-layout-container {
+  background-color: #fff;
+  margin: 10px 0px;
+  padding: 10px 10px;
+}
+
+.editlable-container {
+  margin-left: 10px;
+  display: inline-block;
+  cursor: cell;
+}
+
+.editlable-container:hover {
+}
