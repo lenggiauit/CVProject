@@ -98,9 +98,10 @@ namespace CV.API.Services
                 var convMessageResource = JsonConvert.DeserializeObject<ConversationMessageResource>(jsonConversation);
                 if (convMessageResource != null)
                 {
+                    await _chatServices.SaveMessage(GetCurrentUserId(), convMessageResource.ConversationId, convMessageResource.Id , convMessageResource.Message); 
                     await Clients.Group(convMessageResource.ConversationId.ToString().Trim()).SendAsync("onReceivedMessage", jsonConversation);
                     await Clients.Group(convMessageResource.ConversationId.ToString().Trim()).SendAsync("onConversationReceivedMessage", jsonConversation);
-                    await _chatServices.SaveMessage(GetCurrentUserId(), convMessageResource.ConversationId, convMessageResource.Message);
+                    
                 }
             }
             catch (Exception ex)
@@ -199,6 +200,17 @@ namespace CV.API.Services
             Groups.RemoveFromGroupAsync(Context.ConnectionId, GetCurrentUserId().ToString().Trim());
             //_chatConnections.Remove(GetCurrentUserId(), Context.ConnectionId);
             return base.OnDisconnectedAsync(exception);
+        }
+
+        public async Task CheckNewMessages(Guid userId)
+        {
+            int count = await _chatServices.CheckNewMessagesByUser(userId); 
+            await Clients.Group(GetCurrentUserId().ToString()).SendAsync("onHaveNewMessages", count);
+        }
+
+        public async Task SetUserSeenMessages(List<Guid> userIds, Guid conversationId)
+        {
+             await _chatServices.SetUserSeenMessages(userIds, conversationId); 
         }
 
     }

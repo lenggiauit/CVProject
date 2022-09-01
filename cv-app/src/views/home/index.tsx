@@ -15,7 +15,7 @@ const Home: React.FC = (): ReactElement => {
         <>
             <Layout isPublic={true}>
 
-                <header className="header h-fullscreen-nav-none mt-8" style={{ backgroundImage: "linear-gradient(135deg, #f9f7ff 0%, #fff 50%, #f6f3ff 100%);" }}>
+                <header className="header h-fullscreen-nav-none mt-8" >
                     <div className="container">
                         <div className="row align-items-center ">
 
@@ -24,7 +24,7 @@ const Home: React.FC = (): ReactElement => {
                                 <p className="lead mt-5 mb-8">Fill in the blanks, choose a template and download your resume in minutes. All free and private!</p>
                                 <p className="gap-xy">
                                     <a className="btn btn-lg btn-round btn-primary" href="#">Create now</a>
-                                    <a className="btn btn-lg btn-round btn-outline-secondary" href="/templates">View our templates</a>
+                                    <a className="btn btn-lg btn-round btn-outline-secondary" href="#template-content">View our templates</a>
                                 </p>
                             </div>
 

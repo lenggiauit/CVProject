@@ -27,6 +27,11 @@ namespace CV.API.Services
             _appSettings = appSettings.Value;
         }
 
+        public async Task<int> CheckNewMessagesByUser(Guid userId)
+        {
+            return await _chatRepository.CheckNewMessagesByUser(userId);
+        }
+
         public async Task<List<Conversation>> ConversationalSearch(User currentUser, BaseRequest<ConversationalSearchRequest> request)
         {
             return await _chatRepository.ConversationalSearch(currentUser, request);
@@ -79,9 +84,9 @@ namespace CV.API.Services
             return await _chatRepository.RemoveFromConversation(userId, request);
         }
 
-        public async Task SaveMessage(Guid userId, Guid conversationId, string message)
+        public async Task SaveMessage(Guid userId, Guid conversationId, Guid msId, string message)
         {
-            await _chatRepository.SaveMessage(userId, conversationId, message);
+            await _chatRepository.SaveMessage(userId, conversationId, msId, message);
             await _unitOfWork.CompleteAsync();
         } 
           
@@ -89,6 +94,11 @@ namespace CV.API.Services
         public async Task<ConversationMessage> SendMessage(Guid userId, BaseRequest<SendMessageRequest> request)
         {
             return await _chatRepository.SendMessage(userId, request);
+        }
+
+        public async Task SetUserSeenMessages(List<Guid> userIds, Guid conversationId)
+        {
+            await _chatRepository.SetUserSeenMessages(userIds, conversationId);
         }
     }
 }

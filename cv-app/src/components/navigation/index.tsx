@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import * as bt from 'react-bootstrap';
 import { Translation } from '../../components/translation/'
@@ -8,6 +8,7 @@ import { getLoggedUser, hasPermission, hasPermissions, logout } from '../../util
 import { AnimationLogo } from '../animationLogo';
 import { User } from '../../services/models/user';
 import { PermissionKeys } from '../../utils/constants';
+import { getSignalRHubConnection, StartSignalRHubConnection, StopSignalRHubConnection } from '../../services/chat';
 
 type Props = {
     isPublic: boolean,
@@ -17,7 +18,32 @@ type Props = {
 
 const Navigation: React.FC<Props> = ({ isPublic, navCssClass, currentUser }) => {
     const location = useLocation();
+    const signalRHubConnection = null;
+    const [messageCount, setMessageCount] = useState<Number>(0);
+    // Start onload 
+     useEffect(() => {
+        StartSignalRHubConnection(); 
+        return () => {
+            StopSignalRHubConnection();
+        }
+    }, []);
+    useEffect(() => { 
+        setTimeout(() => {
+       const signalRHubConnection = getSignalRHubConnection(); 
+        if (signalRHubConnection.state === 'Connected') {
+            const currentUser = getLoggedUser();
+            if(currentUser !=null){
+                signalRHubConnection.send("checkNewMessages", currentUser.id);
+                console.log("checkNewMessages");
+            }
+            signalRHubConnection.on("onHaveNewMessages", (count) => {
+                setMessageCount(count);
+                console.log(count);
+            });
+        } }, 1000);
 
+        
+    }, [signalRHubConnection]);
     return (
         <>
             <nav className={"navbar navbar-expand-lg navbar-dark " + (navCssClass ? navCssClass : "")}>
@@ -60,7 +86,7 @@ const Navigation: React.FC<Props> = ({ isPublic, navCssClass, currentUser }) => 
                             }
                             {currentUser != null && <>
                                 <li className="nav-item">
-                                    <a className={`nav-link ${(location.pathname.indexOf('messages') != -1) ? "active" : ""}`} href="/messages"><Translation tid="nav_messages" /></a>
+                                    <a className={`nav-link ${(location.pathname.indexOf('messages') != -1) ? "active" : ""}`} href="/messages"><Translation tid="nav_messages" />{messageCount == 0 ? "" : <span className='text-danger'>({ messageCount})</span> }</a>
                                 </li>
                                 <li className="nav-item">
                                     <a className={`nav-link ${(location.pathname.indexOf('profile') != -1) ? "active" : ""}`} href="/profile"><Translation tid="nav_profile" /></a>

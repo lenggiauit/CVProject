@@ -223,12 +223,12 @@ const Message: React.FC = (): ReactElement => {
                             }
                             <div className="conversationer-container overflow-auto">
                                 {!isSearchingUser && <>
-                                    <Scrollbars key={"message-scrollbars-" + v4().toString()} >
+                                    {/* <Scrollbars key={"message-scrollbars-" + v4().toString()} > */}
                                         {currentListConversations
                                             .map((item, index) => (
                                                 <Conversationer key={"conversationer-" + index + v4().toString() + item.id} hubConnection={signalRHubConnection} data={item} selectedConversationEvent={selectedConversationHandler} currentUser={currentUser} selectedConversation={selectedConversation} />
                                             ))}
-                                    </Scrollbars>
+                                    {/* </Scrollbars> */}
                                 </>}
                                 {isSearchingUser && <>
                                     <Scrollbars key={"message-search-scrollbars-" + v4().toString()} >

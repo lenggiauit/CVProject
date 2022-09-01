@@ -44,6 +44,13 @@ const ConversationMessageItem: React.FC<Props> = ({ hubConnection, message, user
         }
     }, [hubConnection])
 
+    useEffect(() => {
+
+        if (hubConnection.state === 'Connected') {
+            hubConnection.send("setUserSeenMessages", [currentUser.id], message.id);
+        }
+    }, [])
+
     if (message && user) {
         return (<>
 

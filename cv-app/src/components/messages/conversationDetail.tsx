@@ -217,6 +217,7 @@ const ConversationDetail: React.FC<Props> = ({ hubConnection, currentConversatio
                 try {
                     const convMessage = JSON.parse(receivedMessage) as ConversationMessage;
                     if (convMessage) {
+                        hubConnection.send("setUserSeenMessages", [currentUser.id], convMessage.id);
                         let listMessages = listReceivedMessage;
                         listMessages.push(convMessage);
                         setListReceivedMessage([...listMessages]);

@@ -30,6 +30,8 @@ const Login: React.FC = (): ReactElement => {
         initialValues = JSON.parse(rememberMeStr);
 
     const [rememberMe, setRememberMe] = useState<boolean>(true);
+    const [loginGoogleResponseResult, setLoginGoogleResponseResult] = useState<ResultCode | null>(null);
+    
     const handleRememberMeclick: React.MouseEventHandler<HTMLLabelElement> = (e) => {
         setRememberMe(!rememberMe);
     }
@@ -62,11 +64,13 @@ const Login: React.FC = (): ReactElement => {
         fetch(appSetting.BaseUrl + "account/LoginWithGoogle?access_token=" + access_token)
             .then(response => response.json())
             .then((jsonData) => {
+                setLoginGoogleResponseResult(jsonData.resultCode);
                 if (jsonData.resultCode == ResultCode.Success) {
                     setLoggedUser(jsonData.resource);
                     window.location.href = "/";
-                }
+                } 
             }).catch(() => {
+                setLoginGoogleResponseResult(ResultCode.Error);
                 console.log('Error');
             })
     }
@@ -119,16 +123,7 @@ const Login: React.FC = (): ReactElement => {
                                 </div>
                             </Form>
                         </Formik>
-                        {data && data.resultCode == ResultCode.NotExistUser.valueOf() && <>
-                            <div className="alert alert-danger" role="alert">
-                                <Translation tid="NotExistUser" />
-                            </div>
-                        </>}
-                        {data && data.resultCode == ResultCode.Error.valueOf() && <>
-                            <div className="alert alert-danger" role="alert">
-                                <Translation tid="ErrorMsg" />
-                            </div>
-                        </>}
+                        
                         <div className="divider"><Translation tid="OrLoginWith" /></div>
                         <div className="form-group">
                             <button className="btn btn-block btn-primary" type="button" disabled={isLoading} onClick={handleOnSubmitWithDemoAccount} ><Translation tid="LoginWithDemoAccount" /></button>
@@ -146,6 +141,24 @@ const Login: React.FC = (): ReactElement => {
                                 <i className="fa fa-google"></i>
                             </GoogleLoginButton>
                         </div>
+                        {data && data.resultCode == ResultCode.NotExistUser.valueOf() && <>
+                            <hr className="w-30" />
+                            <div className="alert alert-danger" role="alert">
+                                <Translation tid="NotExistUserMsg" />
+                            </div>
+                        </>}
+                        {data && data.resultCode == ResultCode.Error.valueOf() && <>
+                            <hr className="w-30" />
+                            <div className="alert alert-danger" role="alert">
+                                <Translation tid="ErrorMsg" />
+                            </div>
+                        </>}
+                        {loginGoogleResponseResult && loginGoogleResponseResult == ResultCode.NotExistEmail.valueOf() && <>
+                            <hr className="w-30" />
+                            <div className="alert alert-danger" role="alert">
+                                <Translation tid="NotExistEmailMsg" />
+                            </div>
+                        </>}
                         <hr className="w-30" />
                         <p className="text-center text-muted small-2">
                             <Translation tid="DontHaveAnAccount" />

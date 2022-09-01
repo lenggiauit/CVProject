@@ -182,13 +182,13 @@ namespace CV.API.Persistence.Repositories
             }
         }
 
-        public async Task SaveMessage(Guid userId, Guid conversationId, string message)
+        public async Task SaveMessage(Guid userId, Guid conversationId, Guid msId, string message)
         {
             try
-            {
+            { 
                 var convMessage = new ConversationMessage()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = msId,
                     ConversationId = conversationId,
                     UserId = userId,
                     SendDate = DateTime.Now,
@@ -202,11 +202,11 @@ namespace CV.API.Persistence.Repositories
                     conversation.LastMessage = message;
                     conversation.LastMessageDate = DateTime.Now;
                 }
-                _context.Update(conversation);
+                _context.Update(conversation); 
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError(ex.Message); 
             }
         }
 
@@ -290,13 +290,13 @@ namespace CV.API.Persistence.Repositories
                             FullName = u.FullName,
                         })
                     .Select(u => new Conversation()
-                        {
-                            Id = Guid.NewGuid(),
-                            Title = !string.IsNullOrEmpty(u.FullName) ? u.FullName : u.UserName,
-                            LastMessage = string.Empty,
-                            CreatedDate = DateTime.Now,
-                            Conversationers = new List<User> { currentUser, u },
-                        }))
+                    {
+                        Id = Guid.NewGuid(),
+                        Title = !string.IsNullOrEmpty(u.FullName) ? u.FullName : u.UserName,
+                        LastMessage = string.Empty,
+                        CreatedDate = DateTime.Now,
+                        Conversationers = new List<User> { currentUser, u },
+                    }))
                     //.DistinctBy(d => d.Conversationers )
                     .ToList();
 
@@ -392,6 +392,28 @@ namespace CV.API.Persistence.Repositories
                           .ToList()
                     })
                    .AsNoTracking().FirstOrDefaultAsync();
+        }
+
+        public async Task<int> CheckNewMessagesByUser(Guid userId)
+        { 
+            return await _context.ConversationUsers.Where(cu => cu.UserId.Equals(userId))
+                .Join(_context.ConversationMessage.
+                Where(cm => (cm.SeenByUids == null || !cm.SeenByUids.Contains (userId.ToString())) && !cm.UserId.Equals(userId)),
+                cu1 => cu1.ConversationId, cm1 => cm1.ConversationId, (cu2, cm2) => cm2) 
+                .AsNoTracking().CountAsync();
+        }
+
+        public async Task SetUserSeenMessages(List<Guid> userIds, Guid conversationId)
+        {
+            var ms = _context.ConversationMessage.Where(c => c.Id.Equals(conversationId)).FirstOrDefault();
+
+            if(ms != null)
+            {
+                ms.SeenByUids = String.Format("{0},{1}", ms.SeenByUids, string.Join(",", userIds)); 
+                _context.ConversationMessage.Update(ms);
+                await _context.SaveChangesAsync();
+            }
+           
         }
     }
 }

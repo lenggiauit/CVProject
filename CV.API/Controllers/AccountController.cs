@@ -85,7 +85,7 @@ namespace CV.API.Controllers
                     }
                     else
                     {
-                        return new AuthenticateResponse(Constants.InvalidMsg, ResultCode.Error);
+                        return new AuthenticateResponse(Constants.UnknowMsg, ResultCode.NotExistEmail);
                     }
                 }
                 else

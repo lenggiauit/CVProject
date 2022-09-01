@@ -320,7 +320,7 @@
   border-radius: 5px;
 }
 .conversationer-container {
-  height: calc(100vh - 190px);
+  /* height: calc(100vh - 190px); */
 }
 .conversation-detail-container {
   height: calc(100vh - 190px);
@@ -581,6 +581,9 @@ label.btn {
   margin-left: 10px;
   display: inline-block;
   cursor: cell;
+}
+.template-upload-img{
+  max-height: 200px !important;
 }
 
 .editlable-container:hover {

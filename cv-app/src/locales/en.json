@@ -90,5 +90,7 @@
     "selectTemplate": "Select Template",
     "input_your_information": "Input your information",
     "back_to_select_template": "Back to select template",
-    "preview_template": "Preview"
+    "preview_template": "Preview",
+    "ErrorMsg" : "Error",
+    "NotExistEmailMsg" : "User doesn't exist in our system. Please click Register link to SignUp"
 }

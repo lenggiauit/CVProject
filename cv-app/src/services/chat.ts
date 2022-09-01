@@ -31,6 +31,10 @@ export const StartSignalRHubConnection = () => {
     }
 }
 
+export const getSignalRHubConnection = () => {
+     return signalRHubConnection;
+}
+ 
 export const CheckSignalRHubConnection = () => {
     return signalRHubConnection.state == 'Disconnected';
 }
