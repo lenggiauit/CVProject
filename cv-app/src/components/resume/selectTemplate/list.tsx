@@ -97,16 +97,13 @@ const TemplatesList: React.FC<Props> = ({ onSelected, onLoading }) => {
                 <li className="nav-item">
                     <a className={"nav-link " + (currentFilter == "all" ? "active" : "")} href="#" data-shuffle="button" onClick={() => { setCurrentFilter("all") }}><Translation tid="all" /></a>
                 </li>
-                {templateTypeList.map((type) => (
-                    <>
-                        <li className="nav-item">
+                {templateTypeList.map((type) => ( 
+                        <li key={v4()} className="nav-item">
                             <a className={"nav-link " + (currentFilter == type.id ? "active" : "")} href="#" data-shuffle="button" onClick={() => { setCurrentFilter(type.id) }} data-group="bag">{type.name}</a>
-                        </li>
-                    </>
+                        </li> 
                 ))}
             </ul>
-            <div className="row gap-y gap-2" data-shuffle="list">
-
+            <div className="row gap-y gap-2" data-shuffle="list"> 
                 {templateList.map(p => <TemplateItem key={v4().toString()} template={p} onSelected={onSelectHandler} />)}
             </div>
 

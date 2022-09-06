@@ -75,7 +75,7 @@ const TemplatesList: React.FC = () => {
 
     return (<>
         {getTemplatesStatus.isLoading && <PageLoading />}
-        {isShowModal && <AddEditTemplateModal temp={selecttedTemplate} onClose={onCloseHandler} />}
+        {isShowModal && <AddEditTemplateModal  key={v4()} temp={selecttedTemplate} onClose={onCloseHandler} />}
         <section className="section overflow-hidden bg-gray">
             <div className="container">
                 <header className="section-header mb-0">

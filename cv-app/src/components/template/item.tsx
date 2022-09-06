@@ -11,7 +11,7 @@ const TemplateItem: React.FC<Props> = ({ template, onSelected }) => {
 
     return (<>
         <div className="col-12 col-lg-4">
-            <a className="card template-item-container shadow-1 hover-shadow-6" href="#" onClick={(e) => { e.preventDefault(); onSelected(template) }}   >
+            <div className="card template-item-container shadow-1 hover-shadow-6"  onClick={(e) => { e.preventDefault(); onSelected(template) }}   >
                 <div className="card d-block">
                     <div className="card-img-top template-image">
                         <img src={template.image} alt={template.name} />
@@ -25,7 +25,7 @@ const TemplateItem: React.FC<Props> = ({ template, onSelected }) => {
                         <p>{template.description}</p>
                     </div>
                 </div>
-            </a>
+            </div>
         </div>
 
     </>)

@@ -1,4 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from "react";
+import { v4 } from "uuid";
 import { Control } from "../../services/models/control";
 import { ControlType } from "../../services/models/controlType";
 import { Language } from "../../services/models/language";
@@ -45,43 +46,43 @@ export class ControlTemplate extends ControlTemplateBase {
                 console.log(JSON.stringify(c.id))
                 switch (c.type) {
                     case ControlType.Div:
-                        listRenderControl.push(<DIV data={c} children={this.renderTemplateControl(c.id, listControl)} />);
+                        listRenderControl.push(<DIV data={c} key={v4()} children={this.renderTemplateControl(c.id, listControl)} />);
                         break;
                     case ControlType.Container:
-                        listRenderControl.push(<CONTAINER data={c} children={this.renderTemplateControl(c.id, listControl)} />);
+                        listRenderControl.push(<CONTAINER data={c} key={v4()} children={this.renderTemplateControl(c.id, listControl)} />);
                         break;
                     case ControlType.Header:
-                        listRenderControl.push(<HEADER data={c} children={this.renderTemplateControl(c.id, listControl)} />);
+                        listRenderControl.push(<HEADER data={c} key={v4()} children={this.renderTemplateControl(c.id, listControl)} />);
                         break;
                     case ControlType.Main:
-                        listRenderControl.push(<DIV data={c} children={this.renderTemplateControl(c.id, listControl)} />);
+                        listRenderControl.push(<DIV data={c} key={v4()} children={this.renderTemplateControl(c.id, listControl)} />);
                         break;
                     case ControlType.Section:
-                        listRenderControl.push(<SECTION data={c} children={this.renderTemplateControl(c.id, listControl)} />);
+                        listRenderControl.push(<SECTION data={c} key={v4()} children={this.renderTemplateControl(c.id, listControl)} />);
                         break;
                     case ControlType.H1:
-                        listRenderControl.push(<H1 data={c} language={this.props.language} />);
+                        listRenderControl.push(<H1 data={c} key={v4()} language={this.props.language} />);
                         break;
                     case ControlType.H2:
-                        listRenderControl.push(<H2 data={c} language={this.props.language} />);
+                        listRenderControl.push(<H2 data={c} key={v4()} language={this.props.language} />);
                         break;
                     case ControlType.H3:
-                        listRenderControl.push(<H3 data={c} language={this.props.language} />);
+                        listRenderControl.push(<H3 data={c} key={v4()} language={this.props.language} />);
                         break;
                     case ControlType.H4:
-                        listRenderControl.push(<H4 data={c} language={this.props.language} />);
+                        listRenderControl.push(<H4 data={c} key={v4()} language={this.props.language} />);
                         break;
                     case ControlType.H5:
-                        listRenderControl.push(<H5 data={c} language={this.props.language} />);
+                        listRenderControl.push(<H5 data={c} key={v4()} language={this.props.language} />);
                         break;
                     case ControlType.Label:
-                        listRenderControl.push(<LABEL data={c} language={this.props.language} />);
+                        listRenderControl.push(<LABEL data={c} key={v4()} language={this.props.language} />);
                         break;
                     case ControlType.EditLabel:
-                        listRenderControl.push(<EDITLABEL data={c} language={this.props.language} />);
+                        listRenderControl.push(<EDITLABEL data={c} key={v4()} language={this.props.language} />);
                         break;
                     case ControlType.Input:
-                        listRenderControl.push(<INPUTTEXT data={c} language={this.props.language} />);
+                        listRenderControl.push(<INPUTTEXT data={c} key={v4()} language={this.props.language} />);
                         break;
                 }
             });

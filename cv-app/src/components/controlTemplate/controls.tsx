@@ -94,7 +94,7 @@ export class HEADER extends Component<Props, State> {
 export class INPUTTEXT extends Component<Props, State> {
     public render() {
         console.log("render INPUTTEXT");
-        return <input type="text" className={"form-control " + this.props.data.cssClass} placeholder={this.props.data.placeholder}> </input>;
+        return <input type="text" className={"form-control w-100" + this.props.data.cssClass} placeholder={this.props.data.placeholder}> </input>;
     }
 }
 

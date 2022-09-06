@@ -96,15 +96,16 @@ const Navigation: React.FC<Props> = ({ isPublic, navCssClass, currentUser }) => 
                                 </li>
                             </>
                             }
-                            {isPublic && currentUser == null && <>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="/login"><Translation tid="nav_login" /></a>
-                                </li>
-                            </>}
+                            
                         </ul>
                         <div>
+                           
                             <a className="btn btn-sm btn-success" href="#">Donate</a>
                             <span className="navbar-divider d-mobile-none"></span>
+                            {isPublic && currentUser == null && <> 
+                            <a className="btn btn-sm btn-success" href="/login"><Translation tid="nav_login" /></a> 
+                            <span className="navbar-divider d-mobile-none"></span>
+                            </>}
                         </div>
                         <LanguageSelector />
                     </section>

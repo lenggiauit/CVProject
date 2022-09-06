@@ -13,12 +13,13 @@ import { Template } from "../../../services/models/template";
 import { useUploadImageMutation, useUploadPackageFileMutation } from "../../../services/fileService";
 import { GlobalKeys } from "../../../utils/constants";
 import LocalSpinner from "../../localSpinner";
+import { v4 } from "uuid";
 
 let appSetting: AppSetting = require('../../../appSetting.json');
 
 interface FormValues {
     id: string,
-    typeid: string,
+    templateTypeId: string,
     image: string,
     name: string,
     package: string,
@@ -51,15 +52,15 @@ const AddEditTemplateModal: React.FC<Props> = ({ temp, onClose }) => {
     const onCloseHandler: any = () => {
         onClose();
     }
-
+     
     let initialValues: FormValues = {
         id: (temp == null ? uuid.NIL : temp.id),
-        typeid: temp?.templateTypeId,
-        name: temp?.name,
-        image: temp?.image,
-        package: temp?.package,
-        description: temp?.description,
-        isArchived: (temp != null ? temp.isArchived : false)
+        templateTypeId: (temp != null ? temp.templateTypeId : uuid.NIL),
+        name: (temp != null ? temp.name : ""),
+        image: (temp != null ? temp.image : null),
+        package: (temp != null ? temp.package : ""),
+        description: (temp != null ? temp.description : ""),
+        isArchived: (temp != null ? temp.isArchived : false),
     };
 
     const validationSchema = () => {
@@ -67,17 +68,14 @@ const AddEditTemplateModal: React.FC<Props> = ({ temp, onClose }) => {
             name: Yup.string().required(dictionaryList[locale]["RequiredField"]),
             description: Yup.string()
                 .required(dictionaryList[locale]["RequiredField"]),
-            // templateTypeId: Yup.object()
-            //     .required(dictionaryList[locale]["RequiredField"])
-
-            // package: Yup.string()
-            //     .required(dictionaryList[locale]["RequiredField"])
-
+            templateTypeId: Yup.string()
+                .required(dictionaryList[locale]["RequiredField"]), 
+            package: Yup.object().nullable().notRequired()
         });
     }
     const handleOnSubmit = (values: FormValues, actions: FormikHelpers<FormValues>) => {
 
-        createEditTemplate({ payload: { id: values.id, templateTypeId: values.typeid, name: values.name, image: currentTemplateImage, description: values.description, package: currentPackage, isArchived: archived } });
+        createEditTemplate({ payload: { id: values.id, templateTypeId: values.templateTypeId, name: values.name, image: currentTemplateImage, description: values.description, package: currentPackage, isArchived: archived } });
     }
 
     useEffect(() => {
@@ -92,7 +90,7 @@ const AddEditTemplateModal: React.FC<Props> = ({ temp, onClose }) => {
 
     const inputFileUploadRef = useRef<HTMLInputElement>(null);
 
-    const handleSelectFile: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const handleSelectFile: React.ChangeEventHandler<HTMLInputElement> = (e) => { 
         let file = e.target.files?.item(0);
         if (file) {
             const formData = new FormData();
@@ -101,7 +99,7 @@ const AddEditTemplateModal: React.FC<Props> = ({ temp, onClose }) => {
         }
     }
 
-    const handleUploadFile: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
+    const handleUploadFile: React.MouseEventHandler<HTMLAnchorElement> = (e) => { 
         inputFileUploadRef.current?.click();
     }
 
@@ -126,8 +124,8 @@ const AddEditTemplateModal: React.FC<Props> = ({ temp, onClose }) => {
             setCurrentPackage(uploadPackageData.data.resource.url);
 
         }
-    }, [uploadPackageData.data]);
-
+    }, [uploadPackageData]);
+    
     // 
     return (<>
         {(createEditTemplateStatus.isLoading || uploadPackageData.isLoading || uploadData.isLoading) && <PageLoading />}
@@ -146,29 +144,30 @@ const AddEditTemplateModal: React.FC<Props> = ({ temp, onClose }) => {
                     </div>
                     <div className="modal-body pb-0 pt-5">
 
-                        <Formik initialValues={initialValues} onSubmit={handleOnSubmit} validationSchema={validationSchema} validateOnChange={false}  >
-                            {({ values, errors, touched }) => (
+                        <Formik 
+                        initialValues={initialValues} onSubmit={handleOnSubmit} 
+                        validationSchema={validationSchema} validateOnChange={false} enableReinitialize={false} >
+                            {({ handleChange, values, errors, touched }) => (
                                 <Form autoComplete="off">
                                     <div className="form-group align-items-center text-center">
                                         <img src={currentTemplateImage} alt={"template Image"} className="template-upload-img" width="350" />
-                                        <div className="profile-avatar-edit-link-container">
-                                            <a className="profile-avatar-edit-link text-primary" href="#" onClick={handleUploadFile}>Edit</a>
-                                            <div className="hide">
-                                                <input type="file" className="hide" ref={inputFileUploadRef} onChange={handleSelectFile} />
-                                            </div>
+                                        <div className="profile-avatar-edit-link-container mt-4">  
+                                                <input type="file" name="image" ref={inputFileUploadRef} onChange={handleSelectFile} /> 
                                         </div>
                                     </div>
-                                    <div className="form-group">
-                                        <Field as="select" type="select" name="typeid" className="form-control" placeholder="Template Type">
-                                            {getQueryTemplateTypesStatus.isLoading && <LocalSpinner />}
-                                            {getQueryTemplateTypesStatus.data && <>
-                                                {getQueryTemplateTypesStatus.data.resource.map((type) => (
-                                                    <>
-                                                        <option value={type.id} >{type.name}</option>
-                                                    </>
+                                    <div className="form-group"> 
+                                        <Field as="select" type="select" name="templateTypeId"  
+                                            className="form-control" placeholder="Template Type"
+                                            defaultValue={temp != null ? temp.templateType.id : ""}  
+                                            //onChange={()=>{handleChange("templateTypeId")}}
+                                            >  
+                                            <option value="" label="Select a template type">Select a template type</option>
+                                             {getQueryTemplateTypesStatus.data && <>
+                                                {getQueryTemplateTypesStatus.data.resource.map((type) => ( 
+                                                        <option  key={type.id} value={type.id} >{type.name}</option> 
                                                 ))}
                                             </>
-                                            }
+                                            }  
                                         </Field>
                                         <ErrorMessage
                                             name="templateTypeId"
@@ -187,7 +186,7 @@ const AddEditTemplateModal: React.FC<Props> = ({ temp, onClose }) => {
                                     </div>
 
                                     <div className="form-group">
-                                        <Field type="textarea" as="textarea" row={7} className="form-control" name="description" placeholder="description" />
+                                    <Field type="textarea" as="textarea" row={4} className="form-control" name="description" placeholder="description" />
                                         <ErrorMessage
                                             name="description"
                                             component="div"
@@ -197,12 +196,9 @@ const AddEditTemplateModal: React.FC<Props> = ({ temp, onClose }) => {
 
                                     <div className="form-group">
                                         <div className="custom-control custom-checkbox">
-                                            <input type="file" className="custom-file-input" onChange={handleSelectPackageFile} accept=".zip" />
-                                            <label className="custom-file-label"  ><Translation tid="TemplatePackage" /></label>
-                                        </div>
-
-                                        <Field type="hidden" name="package" value={currentPackage} />
-
+                                        <Field type="file" name="package" className="custom-file-input" onChange={handleSelectPackageFile} accept=".zip" />
+                                            <label className="custom-file-label">{currentPackage != null ? currentPackage : <Translation tid="TemplatePackage" /> }</label>
+                                        </div> 
                                         <ErrorMessage
                                             name="package"
                                             component="div"
@@ -224,6 +220,8 @@ const AddEditTemplateModal: React.FC<Props> = ({ temp, onClose }) => {
                                             {!temp && <Translation tid="btnCreate" />}
                                         </button>
                                     </div>
+
+
                                 </Form>
                             )}
                         </Formik>

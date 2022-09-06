@@ -19,5 +19,6 @@ namespace CV.API.Domain.Entities
         public string Value { get; set; }
         public string CssClass { get; set; }
         public List<Control> Childs { get; set; }
+        public string? AutoFill { get; set; }
     }
 }

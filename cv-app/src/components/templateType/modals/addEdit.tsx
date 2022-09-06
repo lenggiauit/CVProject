@@ -41,7 +41,7 @@ const AddEditTemplateTypeModal: React.FC<Props> = ({ tempType, onClose }) => {
         onClose();
     }
 
-    let initialValues: FormValues = { id: (tempType == null ? uuid.NIL : tempType.id), name: tempType?.name, description: tempType?.description, isArchived: (tempType != null ? tempType.isArchived : false) };
+    let initialValues: FormValues = { id: (tempType == null ? uuid.NIL : tempType.id), name: (tempType != null ? tempType?.name: ""), description: ( tempType != null ? tempType?.description: ""), isArchived: (tempType != null ? tempType.isArchived : false) };
 
     const validationSchema = () => {
         return Yup.object().shape({
@@ -83,9 +83,11 @@ const AddEditTemplateTypeModal: React.FC<Props> = ({ tempType, onClose }) => {
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div className="modal-body pb-0 pt-5">
-
-                        <Formik initialValues={initialValues} onSubmit={handleOnSubmit} validationSchema={validationSchema} validateOnChange={false}  >
+                    <div className="modal-body pb-0 pt-5"> 
+                        <Formik initialValues={initialValues} 
+                        onSubmit={handleOnSubmit} 
+                        validationSchema={validationSchema} 
+                        validateOnChange={false}  >
                             {({ values, errors, touched }) => (
                                 <Form autoComplete="off">
                                     <div className="form-group">
@@ -112,7 +114,7 @@ const AddEditTemplateTypeModal: React.FC<Props> = ({ tempType, onClose }) => {
                                             <Field type="checkbox" className="custom-control-input" name="isArchived" checked={archived} />
                                             <label className="custom-control-label" onClick={handleArchivedclick} ><Translation tid="archived" /></label>
                                         </div>
-                                    </div>
+                                    </div> 
                                     <div className="modal-footer border-0 pr-0 pl-0">
                                         <button type="button" className="btn btn-secondary" onClick={onCancelHandler} data-dismiss="modal"><Translation tid="btnClose" /></button>
                                         <button type="submit" className="btn btn-primary" >
