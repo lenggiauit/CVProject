@@ -80,7 +80,7 @@ namespace CV.API.Persistence.Repositories
             _context.Control.RemoveRange(_context.Control.Where(c => c.TemplateId.Equals(templateId)));
         }
 
-        public async Task<Template> CreateEditTemplate(Guid userId, CreateEditTemplateRequest payload, List<CSSContentTemplate> cssStrings, List<LanguageTemplate> languagesStrings, List<ControlTemplate> layout)
+        public async Task<Template> CreateEditTemplate(Guid userId, CreateEditTemplateRequest payload, List<CSSContentTemplate>? cssStrings, List<LanguageTemplate>? languagesStrings, List<ControlTemplate>? layout)
         {
             try
             {
@@ -115,14 +115,18 @@ namespace CV.API.Persistence.Repositories
                         editTemp.Name = payload.Name;
                         editTemp.Description = payload.Description;
                         editTemp.TemplateTypeId = payload.TemplateTypeId;
-                        editTemp.Package = payload.Package;
+                        editTemp.Package = string.IsNullOrEmpty( payload.Package) ? editTemp.Package : payload.Package;
                         editTemp.Image = payload.Image;
                         editTemp.UpdatedDate = DateTime.Now;
                         editTemp.UpdatedBy = userId;
                         editTemp.IsArchived = payload.IsArchived;
                         _context.Template.Update(editTemp);
-                        RemoveTemplateRelatedTables(editTemp.Id);
-                        AddTemplateRelatedTables(editTemp.Id, cssStrings, languagesStrings, layout);
+                        
+                        if (cssStrings != null && languagesStrings != null && layout != null)
+                        {
+                            RemoveTemplateRelatedTables(editTemp.Id);
+                            AddTemplateRelatedTables(editTemp.Id, cssStrings, languagesStrings, layout);
+                        }
                         await _context.SaveChangesAsync();
                         return editTemp;
                     }

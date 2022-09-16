@@ -37,64 +37,70 @@ namespace CV.API.Services
         public async Task<Template> CreateEditTemplate(Guid userId, CreateEditTemplateRequest payload)
         {
             // todo 
-            string fileName = Path.Combine(_appSettings.TemplateFolderPath, Path.GetFileName(payload.Package));
-
-            List<string> cssStrings = new List<string>();
-            List<string> languagesStrings = new List<string>();
-            string layoutString = string.Empty;
-
-            try
+            if (!string.IsNullOrEmpty(payload.Package))
             {
-                using (ZipArchive archive = ZipFile.OpenRead(fileName))
+                string fileName = Path.Combine(_appSettings.TemplateFolderPath, Path.GetFileName(payload.Package));
+
+                List<string> cssStrings = new List<string>();
+                List<string> languagesStrings = new List<string>();
+                string layoutString = string.Empty;
+
+                try
                 {
-                    foreach (var entry in archive.Entries)
+                    using (ZipArchive archive = ZipFile.OpenRead(fileName))
                     {
-                        if (WriterHelper.ValidateExtension(entry, ".language"))
+                        foreach (var entry in archive.Entries)
                         {
-                            languagesStrings.Add(WriterHelper.ExtractFileStrings(entry));
+                            if (WriterHelper.ValidateExtension(entry, ".language"))
+                            {
+                                languagesStrings.Add(WriterHelper.ExtractFileStrings(entry));
+                            }
+                            if (entry.Name.Equals("layout.json", StringComparison.OrdinalIgnoreCase))
+                            {
+                                layoutString = WriterHelper.ExtractFileStrings(entry);
+                            }
+                            if (WriterHelper.ValidateExtension(entry, ".csscontent"))
+                            {
+                                cssStrings.Add(WriterHelper.ExtractFileStrings(entry));
+                            }
                         }
-                        if (entry.Name.Equals("layout.json", StringComparison.OrdinalIgnoreCase))
+                    }
+                    if (cssStrings.Count > 0 && !string.IsNullOrEmpty(layoutString))
+                    {
+                        JObject data = JObject.Parse(layoutString);
+                        List<ControlTemplate> layout = JsonConvert.DeserializeObject<List<ControlTemplate>>(data["layout"].ToString());
+                        List<LanguageTemplate> languageTemplates = new List<LanguageTemplate>();
+                        List<CSSContentTemplate> cssContentTemplates = new List<CSSContentTemplate>();
+                        foreach (var str in languagesStrings)
                         {
-                            layoutString = WriterHelper.ExtractFileStrings(entry);
+                            LanguageTemplate language = JsonConvert.DeserializeObject<LanguageTemplate>(str);
+                            languageTemplates.Add(language);
                         }
-                        if (WriterHelper.ValidateExtension(entry, ".csscontent"))
+
+                        foreach (var str in cssStrings)
                         {
-                            cssStrings.Add(WriterHelper.ExtractFileStrings(entry));
+                            CSSContentTemplate css = JsonConvert.DeserializeObject<CSSContentTemplate>(str);
+                            cssContentTemplates.Add(css);
                         }
+
+                        return await _cvTemplateServiceRepository.CreateEditTemplate(userId, payload, cssContentTemplates, languageTemplates, layout);
+
+                    }
+                    else
+                    {
+                        return null;
                     }
                 }
-                if (cssStrings.Count > 0 && !string.IsNullOrEmpty(layoutString))
+                catch (Exception ex)
                 {
-                    JObject data = JObject.Parse(layoutString);
-                    List<ControlTemplate> layout = JsonConvert.DeserializeObject<List<ControlTemplate>>(data["layout"].ToString());
-                    List<LanguageTemplate> languageTemplates = new List<LanguageTemplate>();
-                    List<CSSContentTemplate> cssContentTemplates = new List<CSSContentTemplate>();
-                    foreach (var str in languagesStrings)
-                    {
-                        LanguageTemplate language = JsonConvert.DeserializeObject<LanguageTemplate>(str);
-                        languageTemplates.Add(language);
-                    }
-
-                    foreach (var str in cssStrings)
-                    {
-                        CSSContentTemplate css = JsonConvert.DeserializeObject<CSSContentTemplate>(str);
-                        cssContentTemplates.Add(css);
-                    }
-
-                    return await _cvTemplateServiceRepository.CreateEditTemplate(userId, payload, cssContentTemplates, languageTemplates, layout);
-
-                }
-                else
-                {
+                    _logger.LogError(ex.Message);
                     return null;
                 }
             }
-            catch (Exception ex)
+            else
             {
-                _logger.LogError(ex.Message);
-                return null;
+                return await _cvTemplateServiceRepository.CreateEditTemplate(userId, payload, null, null, null);
             }
-
 
         }
 

@@ -33,7 +33,7 @@ type Props = {
 }
 
 const AddEditTemplateModal: React.FC<Props> = ({ temp, onClose }) => {
-
+     
     const { locale } = useAppContext();
     const [template, setTemplate] = useState<Template | undefined>(temp);
     const [createEditTemplate, createEditTemplateStatus] = useCreateEditTemplateMutation();
@@ -55,7 +55,7 @@ const AddEditTemplateModal: React.FC<Props> = ({ temp, onClose }) => {
      
     let initialValues: FormValues = {
         id: (temp == null ? uuid.NIL : temp.id),
-        templateTypeId: (temp != null ? temp.templateTypeId : uuid.NIL),
+        templateTypeId: (temp != null ? temp.templateType.id : ""),
         name: (temp != null ? temp.name : ""),
         image: (temp != null ? temp.image : null),
         package: (temp != null ? temp.package : ""),
@@ -159,6 +159,7 @@ const AddEditTemplateModal: React.FC<Props> = ({ temp, onClose }) => {
                                         <Field as="select" type="select" name="templateTypeId"  
                                             className="form-control" placeholder="Template Type"
                                             defaultValue={temp != null ? temp.templateType.id : ""}  
+                                            //value={temp != null ? temp.templateType.id : ""}  
                                             //onChange={()=>{handleChange("templateTypeId")}}
                                             >  
                                             <option value="" label="Select a template type">Select a template type</option>

@@ -107,7 +107,7 @@ const TemplateTypesList: React.FC = () => {
                         </li>
                     </ul>
                     <div className="row gap-y gap-2" data-shuffle="list">
-                        {hasPermission(PermissionKeys.CreateTemplateType) && <AddProjectButton onAdded={onCloseHandler} />}
+                        {hasPermission(PermissionKeys.CreateTemplateType) && !isArchived && <AddProjectButton onAdded={onCloseHandler} />}
                         {templateTypeList.map(p => <TemplateTypeItem key={v4().toString()} templateType={p} onSelected={onEditHandler} />)}
                     </div>
 
